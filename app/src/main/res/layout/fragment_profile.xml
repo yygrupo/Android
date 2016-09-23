@@ -24,7 +24,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="User Name"
             android:id="@+id/textView1"
-            android:layout_below="@+id/ivp_avatar"
+            android:layout_below="@+id/tv_select_image"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="2dp"
@@ -45,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:inputType="textEmailAddress"
             android:text="User Email"
             android:id="@+id/textView2"
             android:layout_below="@+id/tvp_user"
@@ -94,6 +95,17 @@
             android:id="@+id/btnp_save"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Click to Select Image"
+            android:id="@+id/tv_select_image"
+            android:layout_below="@+id/ivp_avatar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/colorPrimary"/>
 
 
     </RelativeLayout>

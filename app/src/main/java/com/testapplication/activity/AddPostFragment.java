@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.activeandroid.query.Select;
 import com.testapplication.R;
 import com.testapplication.model_db.Post;
@@ -52,7 +51,7 @@ public class AddPostFragment extends android.app.Fragment {
         post.text=description;
         post.user=user;
         post.save();
-        Toast toast = Toast.makeText(getActivity(), "Post saved succesfull", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getActivity(), "Post saved successful", Toast.LENGTH_SHORT);
         toast.show();
         MainActivity.changeFragment(R.id.container,new PostFragment(),getFragmentManager());
 

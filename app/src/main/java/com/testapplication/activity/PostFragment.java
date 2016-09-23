@@ -39,7 +39,7 @@ public class PostFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_post, container, false);
         fab=(FloatingActionButton) rootView.findViewById(R.id.fab);
-         List<Post> listPost=new Select().from(Post.class).execute();
+        List<Post> listPost=getPosts(MainActivity.myPosts);
         List<com.testapplication.model_adapter.Post> listPostAdapter = modelToPost(listPost);
         RecyclerView listViewUser= (RecyclerView) rootView.findViewById(R.id.postList);
         listViewUser.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -61,6 +61,17 @@ public class PostFragment extends android.app.Fragment {
             datAdapter.add(newPost);
         }
         return datAdapter;
+    }
+    public List<Post> getPosts(Boolean myPost){
+        List<Post> posts=new ArrayList<>();
+        if(myPost){
+            User user= (User) new Select().from(User.class).where("Id = ?",MainActivity.idUser).executeSingle();
+            posts= user.getPosts();
+        }
+        else{
+            posts= new Select().from(Post.class).execute();
+        }
+        return posts;
     }
 
 }

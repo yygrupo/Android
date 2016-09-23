@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,10 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.testapplication.R;
 
+import java.io.File;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static int idUser;
+    public static boolean myPosts;
     public Fragment frag;
 
 
@@ -47,7 +49,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -89,19 +93,17 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
 
-        if (id == R.id.nav_camera) {
-            UserFragment fragment= new UserFragment();
-            changeFragment(R.id.container,fragment,getFragmentManager());
-        } else if (id == R.id.nav_gallery) {
-            PostFragment postFragment= new PostFragment();
-            changeFragment(R.id.container,postFragment,getFragmentManager());
-        } else if (id == R.id.nav_slideshow) {
-            AddPostFragment addPostFragment= new AddPostFragment();
-            changeFragment(R.id.container,addPostFragment,getFragmentManager());
+        if (id == R.id.users_menu) {
+              changeFragment(R.id.container,new UserFragment(),getFragmentManager());
+        } else if (id == R.id.post_menu) {
+            MainActivity.myPosts=false;
+             changeFragment(R.id.container,new PostFragment(),getFragmentManager());
+        } else if (id == R.id.my_posts_menu) {
+            MainActivity.myPosts=true;
+            changeFragment(R.id.container,new PostFragment(),getFragmentManager());
 
-        } else if (id == R.id.nav_manage) {
-            ProfileFragment profileFragment= new ProfileFragment();
-            changeFragment(R.id.container,profileFragment,getFragmentManager());
+        } else if (id == R.id.profile_menu) {
+             changeFragment(R.id.container, new ProfileFragment(),getFragmentManager());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
