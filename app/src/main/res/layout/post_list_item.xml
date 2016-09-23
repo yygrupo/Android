@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent"
-    android:padding="5dp">
+    android:layout_width="fill_parent" android:layout_height="wrap_content"
+   >
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -30,7 +30,8 @@
         android:id="@+id/tv_post_title"
         android:layout_below="@+id/tvp_user_name"
         android:layout_alignLeft="@+id/tvp_user_name"
-        android:layout_alignStart="@+id/tvp_user_name" />
+        android:layout_alignStart="@+id/tvp_user_name"
+        android:layout_marginTop="1dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,6 +41,7 @@
         android:id="@+id/tvp_description"
         android:layout_below="@+id/tv_post_title"
         android:layout_alignLeft="@+id/tv_post_title"
-        android:layout_alignStart="@+id/tv_post_title" />
+        android:layout_alignStart="@+id/tv_post_title"
+        android:layout_marginTop="1dp"/>
 
 </RelativeLayout>

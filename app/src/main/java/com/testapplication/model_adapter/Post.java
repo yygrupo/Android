@@ -7,10 +7,10 @@ public class Post {
 
     private String user;
     private String post_title;
-    private int img;
+    private String img;
     private String description;
 
-    public Post(String user, String post_title, int img, String description) {
+    public Post(String user, String post_title, String img, String description) {
         this.user = user;
         this.post_title = post_title;
         this.img = img;
@@ -33,11 +33,11 @@ public class Post {
         this.post_title = post_title;
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 

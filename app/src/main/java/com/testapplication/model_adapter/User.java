@@ -3,10 +3,10 @@ package com.testapplication.model_adapter;
 public class User {
     private String user;
     private String email;
-    private int img;
+    private String img;
     private String description;
 
-    public User(String user, String email,int img, String description) {
+    public User(String user, String email,String img, String description) {
         this.user=user;
         this.email=email;
         this.img=img;
@@ -29,11 +29,11 @@ public class User {
         this.email = email;
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 

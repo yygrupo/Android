@@ -3,7 +3,9 @@ package com.testapplication.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -28,9 +30,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Configuration;
+import com.activeandroid.Model;
+import com.activeandroid.query.From;
+import com.activeandroid.query.Select;
 import com.testapplication.R;
+import com.testapplication.model_db.User;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +81,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        // Configuration dbConfiguration = new Configuration.Builder(this).setDatabaseName("test.db").create();
+        ActiveAndroid.initialize(this);
+        //User user = new User("email", "asad", "asdasaaa", "sdsdf", "desas");
+        //user.save();
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -146,6 +164,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+
         if (mAuthTask != null) {
             return;
         }
@@ -265,6 +284,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         addEmailsToAutoComplete(emails);
+
     }
 
     @Override
@@ -308,39 +328,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                List<User> user = new Select().from(User.class).where("Email = ?", mEmail.toString()).and("Password = ?", mPassword.toString()).execute();
+                if (user.size() > 0) {
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    intent.putExtra("id", user.get(1).getId().toString());
+
+                } else {
+                    User newUser= new User();
+                    newUser.email=mEmail;
+                    newUser.password=mPassword;
+                    newUser.save();
+                    String id=newUser.getId().toString();
+                    intent.putExtra("id",id );
+
                 }
-            }
 
-            // TODO: register the new account here.
+            } catch (Exception e) {
+                String mensaje = e.getMessage();
+                return false;
+
+
+            }
+            startActivity(intent);
+
             return true;
         }
 
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
 
         @Override
         protected void onCancelled() {
@@ -348,5 +364,46 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
+ /*    private void init()
+    {
+        Configuration dbConfiguration = new Configuration.Builder(this).setDatabaseName("test.db.db").create();
+
+        boolean movido=false;
+        File local=new File(getFilesDir().getPath()+"/test.db");
+        if(!local.exists()){
+            movido=moverArchivo();
+        }
+        //todo falta usar la variable movido para ver si se pudo mover el alchivo o no
+        String newPath =getFilesDir().getPath()+"/test.db";
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(newPath, null, 1);
+        //daoMaster=new DaoMaster(db);
+
+    }
+
+   private boolean moverArchivo()
+    {
+        try
+        {
+            InputStream in = getResources().openRawResource(R.raw.testdb);
+            File outFile = new File(getFilesDir().getPath() + "/test.db");
+            OutputStream out = new FileOutputStream(outFile);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1)
+            {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            out.flush();
+            out.close();
+            return true;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }*/
 }
 

@@ -1,10 +1,11 @@
 package com.testapplication.activity;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,26 +16,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.testapplication.R;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static int idUser;
+    public Fragment frag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        idUser=Integer.parseInt(getIntent().getStringExtra("id")) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(R.string.app_name);
         UserFragment fragment= new UserFragment();
-        changeFragment(R.id.container,fragment);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-      /*  fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        changeFragment(R.id.container,fragment,getFragmentManager());
+
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -87,30 +88,32 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
         if (id == R.id.nav_camera) {
             UserFragment fragment= new UserFragment();
-            changeFragment(R.id.container,fragment);
+            changeFragment(R.id.container,fragment,getFragmentManager());
         } else if (id == R.id.nav_gallery) {
             PostFragment postFragment= new PostFragment();
-            changeFragment(R.id.container,postFragment);
+            changeFragment(R.id.container,postFragment,getFragmentManager());
         } else if (id == R.id.nav_slideshow) {
             AddPostFragment addPostFragment= new AddPostFragment();
-            changeFragment(R.id.container,addPostFragment);
+            changeFragment(R.id.container,addPostFragment,getFragmentManager());
 
         } else if (id == R.id.nav_manage) {
             ProfileFragment profileFragment= new ProfileFragment();
-            changeFragment(R.id.container,profileFragment);
+            changeFragment(R.id.container,profileFragment,getFragmentManager());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void changeFragment(int container, android.app.Fragment fragment){
-        FragmentManager fragmentManager = getFragmentManager();
+    public static void changeFragment(int container, android.app.Fragment fragment,FragmentManager fragmentManager){
+       //FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(container,fragment);
         //transaction.add();
         transaction.commit();
     }
+
 }

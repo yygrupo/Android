@@ -42,7 +42,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SimpleViewHold
     @Override
     public void onBindViewHolder(SimpleViewHolder viewHolder, int i) {
         Post currentItem = items.get(i);
-        viewHolder.iv_post.setImageResource(currentItem.getImg());
+        //viewHolder.iv_post.setImageResource(currentItem.image.toString());
         viewHolder.tvp_user_name.setText(currentItem.getUser());
         viewHolder.tv_post_title.setText(currentItem.getPost_title());
         viewHolder.tvp_description.setText(currentItem.getDescription());

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.testapplication.R;
 import com.testapplication.model_adapter.User;
 
+
 import java.util.List;
 
 
@@ -42,7 +43,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.SimpleViewHold
     @Override
     public void onBindViewHolder(SimpleViewHolder viewHolder, int i) {
         User currentItem = items.get(i);
-        viewHolder.iv_user.setImageResource(currentItem.getImg());
+        //viewHolder.iv_user.setImageResource(currentItem.getImg());
         viewHolder.tv_user_name.setText(currentItem.getUser());
         viewHolder.tv_email.setText(currentItem.getEmail());
         viewHolder.tv_description.setText(currentItem.getDescription());
