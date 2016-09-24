@@ -40,7 +40,7 @@ public class FileChooser {
     }
     private FileSelectedListener fileListener;
 
-    public FileChooser(Activity activity) {
+    public  FileChooser(Activity activity) {
         this.activity = activity;
         dialog = new Dialog(activity);
         list = new ListView(activity);

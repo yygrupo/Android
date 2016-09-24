@@ -38,6 +38,7 @@ import com.activeandroid.Model;
 import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 import com.testapplication.R;
+import com.testapplication.model_db.OperationUser;
 import com.testapplication.model_db.User;
 
 import java.io.File;
@@ -81,11 +82,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Configuration dbConfiguration = new Configuration.Builder(this).setDatabaseName("test.db").create();
         ActiveAndroid.initialize(this);
-        //User user = new User("email", "asad", "asdasaaa", "sdsdf", "desas");
-        //user.save();
-
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -331,32 +328,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             try {
-                List<User> user = new Select().from(User.class).where("Email = ?", mEmail.toString()).and("Password = ?", mPassword.toString()).execute();
-                if (user.size() > 0) {
-
-                    intent.putExtra("id", user.get(1).getId().toString());
-
+                String idUser = OperationUser.findUserByEmailPass(mEmail, mPassword);
+                if (idUser != null) {
+                    intent.putExtra("id", idUser);
                 } else {
-                    User newUser= new User();
-                    newUser.email=mEmail;
-                    newUser.password=mPassword;
-                    newUser.save();
-                    String id=newUser.getId().toString();
-                    intent.putExtra("id",id );
-
+                    User newUser = OperationUser.addUser(mEmail, mPassword);
+                    String id = newUser.getId().toString();
+                    intent.putExtra("id", id);
                 }
-
             } catch (Exception e) {
-                String mensaje = e.getMessage();
                 return false;
-
-
             }
             startActivity(intent);
 
             return true;
         }
-
 
         @Override
         protected void onCancelled() {

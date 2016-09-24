@@ -15,6 +15,7 @@ import com.activeandroid.query.Select;
 import com.testapplication.R;
 import com.testapplication.adapters.PostAdapter;
 import com.testapplication.adapters.UserAdapter;
+import com.testapplication.model_db.OperationPost;
 import com.testapplication.model_db.Post;
 import com.testapplication.model_db.User;
 
@@ -26,7 +27,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class PostFragment extends android.app.Fragment {
-
+    public   int CASE = 1;
     private FloatingActionButton fab;
     public PostFragment() {
         // Required empty public constructor
@@ -39,8 +40,8 @@ public class PostFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_post, container, false);
         fab=(FloatingActionButton) rootView.findViewById(R.id.fab);
-        List<Post> listPost=getPosts(MainActivity.myPosts);
-        List<com.testapplication.model_adapter.Post> listPostAdapter = modelToPost(listPost);
+        List<Post> listPost= OperationPost.getPosts(MainActivity.myPosts);
+        List<com.testapplication.model_adapter.Post> listPostAdapter = OperationPost.modelToPost(listPost);
         RecyclerView listViewUser= (RecyclerView) rootView.findViewById(R.id.postList);
         listViewUser.setLayoutManager(new LinearLayoutManager(getActivity()));
         PostAdapter postAdapter= new PostAdapter(getActivity(),listPostAdapter);
@@ -50,28 +51,12 @@ public class PostFragment extends android.app.Fragment {
             @Override
             public void onClick(View view) {
                 MainActivity.changeFragment(R.id.container,new AddPostFragment(),getFragmentManager());
+
             }
         });
         return rootView;
     }
-    private List<com.testapplication.model_adapter.Post> modelToPost(List<Post> dataModel){
-        List<com.testapplication.model_adapter.Post> datAdapter= new ArrayList<>();
-        for (Post p:dataModel) {
-            com.testapplication.model_adapter.Post newPost=new com.testapplication.model_adapter.Post(p.user.name,p.title,p.image,p.text);
-            datAdapter.add(newPost);
-        }
-        return datAdapter;
-    }
-    public List<Post> getPosts(Boolean myPost){
-        List<Post> posts=new ArrayList<>();
-        if(myPost){
-            User user= (User) new Select().from(User.class).where("Id = ?",MainActivity.idUser).executeSingle();
-            posts= user.getPosts();
-        }
-        else{
-            posts= new Select().from(Post.class).execute();
-        }
-        return posts;
-    }
+
+
 
 }
