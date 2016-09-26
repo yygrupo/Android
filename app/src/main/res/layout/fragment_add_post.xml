@@ -16,6 +16,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:src="@drawable/image_add_post"/>
+        <TextView
+            android:id="@+id/post_select_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Click to Select Image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@+id/ivadd_picture"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +33,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Post Title"
             android:id="@+id/textView1"
-            android:layout_below="@+id/ivadd_picture"
+            android:layout_below="@+id/post_select_img"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="2dp"

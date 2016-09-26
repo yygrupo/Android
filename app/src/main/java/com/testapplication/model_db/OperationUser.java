@@ -3,10 +3,13 @@ package com.testapplication.model_db;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.Model;
 import com.activeandroid.query.Select;
+import com.squareup.picasso.Picasso;
 import com.testapplication.R;
 import com.testapplication.activity.AddPostFragment;
 import com.testapplication.activity.FileChooser;
@@ -28,34 +31,37 @@ public class OperationUser {
         Toast toast;
         if (modifyUser(email, name, pathImage, description)) {
             toast = Toast.makeText(context, "Profile update successful.", Toast.LENGTH_SHORT);
-            MainActivity.changeFragment(R.id.container, new ProfileFragment(), fragmentManager);
-        }
-        else {
+            MainActivity.changeFragment(R.id.container, new UserFragment(), fragmentManager);
+        } else {
             toast = Toast.makeText(context, "Profile can not be updated.", Toast.LENGTH_SHORT);
         }
         toast.show();
     }
 
     public static void showChooser(final Activity activity, final int option) {
-        new FileChooser(activity).setFileListener(new FileChooser.FileSelectedListener() {
+        FileChooser chooser = new FileChooser(activity).setFileListener(new FileChooser.FileSelectedListener() {
             @Override
             public void fileSelected(File file) {
 
-                String toPath = Tool.moveFile(file, activity);
-                if (toPath != null) {
+                File file1 = Tool.moveFile(file, activity);
+                if (file1 != null) {
                     switch (option) {
                         case ProfileFragment.CASE:
-                            ProfileFragment.pathImage = toPath;
-
+                            ProfileFragment.pathImage = file1.getName();
+                            ProfileFragment.change(activity, file1);
                             break;
                         case AddPostFragment.CASE:
-                            AddPostFragment.pathImage = toPath;
+                            AddPostFragment.pathImage = file1.getName();
+                            AddPostFragment.change(activity, file1);
                             break;
                     }
-                    ProfileFragment.pathImage = toPath;
+                    // ProfileFragment.pathImage = toPath;
                 }
             }
-        }).showDialog();
+        });
+        chooser.setExtension(".png");
+        chooser.showDialog();
+
     }
 
     public static List<com.testapplication.model_adapter.User> modelToUser(List<User> dataModel) {
@@ -99,4 +105,14 @@ public class OperationUser {
         User user = new Select().from(User.class).where("Email = ?", email).and("Password = ?", pass).executeSingle();
         return user != null ? user.getId().toString() : null;
     }
+
+    public static void loadImage(Context context, ImageView imageView, String name) {
+
+        try {
+            Picasso.with(context).load(new File(MainActivity.directory,name)).into(imageView);
+        } catch (Exception e) {
+            String sm = e.getMessage();
+        }
+    }
+
 }

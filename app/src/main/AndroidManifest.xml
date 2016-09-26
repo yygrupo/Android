@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.testapplication">
+
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
     <application
         android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
@@ -28,9 +31,16 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <meta-data android:name="AA_DB_NAME" android:value="test.db"/>
-        <meta-data android:name="AA_DB_VERSION" android:value="2"/>
-        <meta-data android:name="AA_MODELS" android:value="com.testapplication.model_db.Post, com.testapplication.model_db.User"/>
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="test.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="2" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.testapplication.model_db.Post, com.testapplication.model_db.User" />
     </application>
 
 </manifest>

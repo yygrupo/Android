@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.testapplication.R;
 import com.testapplication.model_adapter.Post;
+import com.testapplication.model_db.OperationUser;
 
 import java.util.List;
 
@@ -46,10 +47,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SimpleViewHold
         viewHolder.tvp_user_name.setText(currentItem.getUser());
         viewHolder.tv_post_title.setText(currentItem.getPost_title());
         viewHolder.tvp_description.setText(currentItem.getDescription());
-      /*Glide.with(viewHolder.avatar.getContext())
-                .load(currentItem.getIdDrawable())
-                .centerCrop()
-                .into(viewHolder.avatar);*/
+        OperationUser.loadImage(context,viewHolder.iv_post,currentItem.getImg());
     }
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder
