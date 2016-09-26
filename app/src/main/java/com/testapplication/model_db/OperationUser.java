@@ -32,6 +32,7 @@ public class OperationUser {
         if (modifyUser(email, name, pathImage, description)) {
             toast = Toast.makeText(context, "Profile update successful.", Toast.LENGTH_SHORT);
             MainActivity.changeFragment(R.id.container, new UserFragment(), fragmentManager);
+            MainActivity.setValuesUserDrawer(context);
         } else {
             toast = Toast.makeText(context, "Profile can not be updated.", Toast.LENGTH_SHORT);
         }
@@ -106,10 +107,10 @@ public class OperationUser {
         return user != null ? user.getId().toString() : null;
     }
 
-    public static void loadImage(Context context, ImageView imageView, String name) {
+    public static void loadImage(Context context, ImageView imageView, String name,int w,int h,int errorImagen) {
 
         try {
-            Picasso.with(context).load(new File(MainActivity.directory,name)).into(imageView);
+            Picasso.with(context).load(new File(MainActivity.directory,name)).resize(w,h).centerCrop().placeholder(errorImagen).error(errorImagen).into(imageView);
         } catch (Exception e) {
             String sm = e.getMessage();
         }

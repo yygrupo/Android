@@ -59,17 +59,18 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                    drawerAvatar=(ImageView) findViewById(R.id.drawerAvatar);
-                    drawerName=(TextView) findViewById(R.id.drawerName);
-                    drawerEmail=(TextView) findViewById(R.id.drawerEmail);
-                    setValuesUserDrawer(getApplicationContext());
+
 
             }
         });
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        View header=navigationView.getHeaderView(0);
+        drawerAvatar=(ImageView) header.findViewById(R.id.drawerAvatar);
+        drawerName=(TextView)  header.findViewById(R.id.drawerName);
+        drawerEmail=(TextView)  header.findViewById(R.id.drawerEmail);
+        setValuesUserDrawer(getApplicationContext());
 
     }
 
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+
         }
     }
 
@@ -143,7 +145,7 @@ public class MainActivity extends AppCompatActivity
         User user= OperationUser.singUser();
         drawerEmail.setText(user.email);
         drawerName.setText(user.name);
-        OperationUser.loadImage(context,drawerAvatar,user.image);
+        OperationUser.loadImage(context,drawerAvatar,user.image,48,48,R.drawable.account_circle__white_48dp);
     }
 
 }

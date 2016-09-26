@@ -47,7 +47,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SimpleViewHold
         viewHolder.tvp_user_name.setText(currentItem.getUser());
         viewHolder.tv_post_title.setText(currentItem.getPost_title());
         viewHolder.tvp_description.setText(currentItem.getDescription());
-        OperationUser.loadImage(context,viewHolder.iv_post,currentItem.getImg());
+        OperationUser.loadImage(context,viewHolder.iv_post,currentItem.getImg(),60,60,R.drawable.ic_menu_camera);
     }
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder

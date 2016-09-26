@@ -84,7 +84,7 @@ public class ProfileFragment extends android.app.Fragment {
         name.setText(loginUser.name);
         email.setText(loginUser.email);
         description.setText(loginUser.description);
-        OperationUser.loadImage(getActivity().getApplicationContext(), avatar, loginUser.image);
+        OperationUser.loadImage(getActivity().getApplicationContext(), avatar, loginUser.image,70,70,R.drawable.account_circle__blue_48dp);
     }
 
     public static void change(Activity activity, File file) {

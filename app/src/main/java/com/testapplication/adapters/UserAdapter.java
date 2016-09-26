@@ -49,7 +49,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.SimpleViewHold
         viewHolder.tv_user_name.setText(currentItem.getUser());
         viewHolder.tv_email.setText(currentItem.getEmail());
         viewHolder.tv_description.setText(currentItem.getDescription());
-        OperationUser.loadImage(context,viewHolder.iv_user,currentItem.getImg());
+        OperationUser.loadImage(context,viewHolder.iv_user,currentItem.getImg(),48,48,R.drawable.account_circle__blue_48dp);
     }
 
     public  class SimpleViewHolder extends RecyclerView.ViewHolder
